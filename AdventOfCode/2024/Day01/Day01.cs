@@ -32,14 +32,25 @@ public static class Day01
 
     public static int CalculatePart02()
     {
-        StreamReader streamReader = new StreamReader("D:\\Lennart\\Git\\AdventOfCode\\AdventOfCode\\2024\\Day02\\input.txt");
+        StreamReader streamReader = new StreamReader("D:\\Lennart\\Git\\AdventOfCode\\AdventOfCode\\2024\\Day01\\input.txt");
         string? currentLine = streamReader.ReadLine(); 
-        int answerValue = 0;
+
+        List<int> leftList = new List<int>();
+        List<int> rightList = new List<int>();
 
         while (currentLine != null)
         {
+            string[] splitLine = currentLine.Split("   ");
+            
+            leftList.Add(int.Parse(splitLine[0]));
+            rightList.Add(int.Parse(splitLine[1]));
+            
             currentLine = streamReader.ReadLine(); 
         }
+
+        int answerValue = 0;
+        foreach (int left in leftList)
+            answerValue += left * rightList.Count(x => x == left);
 
         return answerValue;
     }
