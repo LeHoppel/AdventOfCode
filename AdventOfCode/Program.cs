@@ -1,3 +1,3 @@
-﻿using AdventOfCode._2023.Day01;
+﻿using AdventOfCode._2024.Day02;
 
-Console.WriteLine($"Day 01 of 2023: {Day01First.CalculateAnswer()}");
+Console.WriteLine($"Day 02 of 2024: {Day02.CalculateAnswer()}");
