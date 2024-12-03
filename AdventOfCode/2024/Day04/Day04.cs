@@ -7,13 +7,13 @@ public static class Day04
         StreamReader streamReader = new StreamReader("D:\\Lennart\\Git\\AdventOfCode\\AdventOfCode\\2024\\Day03\\input.txt");
         string? currentLine = streamReader.ReadLine(); 
 
+        int answerValue = 0;
+        
         while (currentLine != null)
         {
             
             currentLine = streamReader.ReadLine(); 
         }
-       
-        int answerValue = 0;
         
         return answerValue;
     }
@@ -23,13 +23,13 @@ public static class Day04
         StreamReader streamReader = new StreamReader("D:\\Lennart\\Git\\AdventOfCode\\AdventOfCode\\2024\\Day03\\input.txt");
         string? currentLine = streamReader.ReadLine(); 
 
+        int answerValue = 0;
+        
         while (currentLine != null)
         {
             
             currentLine = streamReader.ReadLine(); 
         }
-       
-        int answerValue = 0;
         
         return answerValue;
     }
