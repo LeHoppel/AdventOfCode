@@ -2,9 +2,9 @@ namespace AdventOfCode._2024.Day04;
 
 public static class Day04
 {
-    public static int CalculatePart01()
+    public static int CalculatePart01(string kindOfInput)
     {
-        StreamReader streamReader = new StreamReader("D:\\Lennart\\Git\\AdventOfCode\\AdventOfCode\\2024\\Day04\\input.txt");
+        StreamReader streamReader = new StreamReader("D:\\Lennart\\Git\\AdventOfCode\\AdventOfCode\\2024\\Day04\\" + kindOfInput + ".txt");
         string? currentLine = streamReader.ReadLine(); 
 
         int answerValue = 0;
@@ -60,9 +60,9 @@ public static class Day04
         return answerValue;
     }
 
-    public static int CalculatePart02()
+    public static int CalculatePart02(string kindOfInput)
     {
-        StreamReader streamReader = new StreamReader("D:\\Lennart\\Git\\AdventOfCode\\AdventOfCode\\2024\\Day04\\input.txt");
+        StreamReader streamReader = new StreamReader("D:\\Lennart\\Git\\AdventOfCode\\AdventOfCode\\2024\\Day04\\" + kindOfInput + ".txt");
         string? currentLine = streamReader.ReadLine(); 
 
         int answerValue = 0;
