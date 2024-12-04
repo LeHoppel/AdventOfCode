@@ -1,12 +1,12 @@
 using System.Text.RegularExpressions;
 
-namespace AdventOfCode._2024.Day03;
+namespace AdventOfCode._2024;
 
-public static class Day03
+public class Day03 : Day
 {
-    public static int CalculatePart01()
+    public override int CalculatePart01(string kindOfInput, string pathPrefix)
     {
-        StreamReader streamReader = new StreamReader("C:\\Users\\Lennart\\RiderProjects\\AdventOfCode\\AdventOfCode\\2024\\Day03\\input.txt");
+        StreamReader streamReader = new StreamReader(pathPrefix + "\\" + kindOfInput + ".txt");
         string? currentLine = streamReader.ReadLine(); 
 
         int answerValue = 0;
@@ -37,9 +37,9 @@ public static class Day03
         return value;
     }
 
-    public static int CalculatePart02()
+    public override int CalculatePart02(string kindOfInput, string pathPrefix)
     {
-        StreamReader streamReader = new StreamReader("C:\\Users\\Lennart\\RiderProjects\\AdventOfCode\\AdventOfCode\\2024\\Day03\\input.txt");
+        StreamReader streamReader = new StreamReader(pathPrefix + "\\" + kindOfInput + ".txt");
         string? currentLine = streamReader.ReadLine(); 
 
         int answerValue = 0;

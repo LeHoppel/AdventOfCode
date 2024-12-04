@@ -1,20 +1,11 @@
-namespace AdventOfCode._2024.Day04;
+namespace AdventOfCode._2024;
 
-public static class Day04
+public class Day04 : Day
 {
-    public static int CalculatePart01(string kindOfInput)
+    public override int CalculatePart01(string kindOfInput, string pathPrefix)
     {
-        StreamReader streamReader = new StreamReader("D:\\Lennart\\Git\\AdventOfCode\\AdventOfCode\\2024\\Day04\\" + kindOfInput + ".txt");
-        string? currentLine = streamReader.ReadLine(); 
-
+        List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");
         int answerValue = 0;
-        List<string> input = new List<string>();
-        
-        while (currentLine != null)
-        {
-            input.Add(currentLine);
-            currentLine = streamReader.ReadLine(); 
-        }
 
         for (int i = 0; i < input[0].Length; i++)
         {
@@ -60,19 +51,10 @@ public static class Day04
         return answerValue;
     }
 
-    public static int CalculatePart02(string kindOfInput)
+    public override int CalculatePart02(string kindOfInput, string pathPrefix)
     {
-        StreamReader streamReader = new StreamReader("D:\\Lennart\\Git\\AdventOfCode\\AdventOfCode\\2024\\Day04\\" + kindOfInput + ".txt");
-        string? currentLine = streamReader.ReadLine(); 
-
+        List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");
         int answerValue = 0;
-        List<string> input = new List<string>();
-        
-        while (currentLine != null)
-        {
-            input.Add(currentLine);
-            currentLine = streamReader.ReadLine(); 
-        }
 
         for (int i = 0; i < input[0].Length; i++)
         {
