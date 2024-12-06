@@ -12,8 +12,8 @@ List<Day> days =
     new Day08()
 ];
 
-int startDay = 5;
-int endDay = 5;
+int startDay = 6;
+int endDay = 6;
 
 for (int i = startDay-1; i < endDay; i++)
 {
