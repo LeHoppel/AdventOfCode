@@ -33,21 +33,21 @@ public class Day06 : Day
         List<string> input = freshInput.ToList();
         int answerValue = 1;
         int currentRotation = 0; // 0 = north, 1 = east, 2 = south, 3 = west
-
-        int numberOfSteps = 0;
+        
+        bool[,,] visitedCoords = new bool[input.Count,input[0].Length,4];
 
         for (int y = guardStartingPos.Item2; y >= 0 && y < input.Count; )
         {
             for (int x = guardStartingPos.Item1; x >= 0 && x < input[0].Length; )
             {
-                numberOfSteps++;
-                if (numberOfSteps >= (input.Count * input[0].Length) * 4) return -1;
+                if (visitedCoords[x,y,currentRotation]) return -1;
                 
                 if (input[y][x] == '.')
                 {
                     answerValue++;
                     input[y] = input[y].Remove(x, 1);
                     input[y] = input[y].Insert(x, "X");
+                    visitedCoords[x,y,currentRotation] = true;
                 }
                 
                 switch (currentRotation)
@@ -99,6 +99,7 @@ public class Day06 : Day
 
     public override int CalculatePart02(string kindOfInput, string pathPrefix)
     {
+        //if (kindOfInput == "input") return -1;
         List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");
         input.Reverse();
 
