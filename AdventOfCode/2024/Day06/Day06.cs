@@ -7,24 +7,42 @@ public class Day06 : Day
         List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");
         input.Reverse();
 
-        (int, int) guardPos = (-1, -1);
+        (int,int) guardStartingPos = CalculateGuardStartingPos(input);
+
+        return CalculateNumberOfSteps(guardStartingPos, input);
+    }
+
+    private static (int, int) CalculateGuardStartingPos(List<string> input)
+    {
+        (int, int) guardStartingPos = (-1, -1);
 
         for (int y = 0; y < input.Count; y++)
         {
             if (input[y].Contains('^'))
             {
-                guardPos = (input[y].IndexOf('^'), y);
+                guardStartingPos = (input[y].IndexOf('^'), y);
                 break;
             }
         }
 
+        return guardStartingPos;
+    }
+
+    private static int CalculateNumberOfSteps((int, int) guardStartingPos, List<string> freshInput)
+    {
+        List<string> input = freshInput.ToList();
         int answerValue = 1;
         int currentRotation = 0; // 0 = north, 1 = east, 2 = south, 3 = west
 
-        for (int y = guardPos.Item2; y >= 0 && y < input.Count; )
+        int numberOfSteps = 0;
+
+        for (int y = guardStartingPos.Item2; y >= 0 && y < input.Count; )
         {
-            for (int x = guardPos.Item1; x >= 0 && x < input[0].Length; )
+            for (int x = guardStartingPos.Item1; x >= 0 && x < input[0].Length; )
             {
+                numberOfSteps++;
+                if (numberOfSteps >= (input.Count * input[0].Length) * 4) return -1;
+                
                 if (input[y][x] == '.')
                 {
                     answerValue++;
@@ -75,14 +93,36 @@ public class Day06 : Day
                 }
             }
         }
-        
+
         return answerValue;
     }
 
     public override int CalculatePart02(string kindOfInput, string pathPrefix)
     {
         List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");
+        input.Reverse();
+
+        (int,int) guardStartingPos = CalculateGuardStartingPos(input);
+        
         int answerValue = 0;
+        
+        for (int y = 0; y < input.Count; y++)
+        {
+            for (int x = 0; x < input[0].Length; x++)
+            {
+                if (input[y][x] != '.')
+                    continue;
+                
+                input[y] = input[y].Remove(x, 1);
+                input[y] = input[y].Insert(x, "#");
+
+                if (CalculateNumberOfSteps(guardStartingPos, input) == -1) 
+                    answerValue++;
+                
+                input[y] = input[y].Remove(x, 1);
+                input[y] = input[y].Insert(x, ".");
+            }
+        }
         
         return answerValue;
     }
