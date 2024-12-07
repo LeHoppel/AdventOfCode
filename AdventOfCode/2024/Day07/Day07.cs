@@ -20,19 +20,17 @@ public class Day07 : Day
         return -1;
     }
 
-    private bool ReduceLineValue(List<string> splitLine, long testValue)
+    private bool ReduceLineValue(List<string> splitLine, long testValue, long runningValue = 0)
     {
-        if (testValue < 0) return false;
+        if (runningValue > testValue) return false;
+        
+        long first = long.Parse(splitLine.First());
         
         if (splitLine.Count == 1)
-            return testValue == long.Parse(splitLine[0]);
-        
-        long last = long.Parse(splitLine.Last());
+            return testValue == runningValue + first || testValue == runningValue * first;
 
-        if (testValue % last != 0) return ReduceLineValue(splitLine.GetRange(0, splitLine.Count - 1), testValue - last);
-        
-        return ReduceLineValue(splitLine.GetRange(0, splitLine.Count - 1), testValue / last)
-            || ReduceLineValue(splitLine.GetRange(0, splitLine.Count - 1), testValue - last);
+        return ReduceLineValue(splitLine.GetRange(1, splitLine.Count - 1), testValue, runningValue + first)
+               || ReduceLineValue(splitLine.GetRange(1, splitLine.Count - 1), testValue, runningValue != 0 ? runningValue * first : first);
     }
 
     public override int CalculatePart02(string kindOfInput, string pathPrefix)
