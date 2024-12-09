@@ -55,12 +55,11 @@ public class Day09 : Day
     {
         List<string> input = TransformInput(kindOfInput, pathPrefix);
         
-        for (int i = input.Count - 1; i >= 0; i--)
+        Dictionary<int, int> freeBlocks = FindAllFreeBlocks(input);
+        
+        for (int i = input.Count - 1; i > 0; i--)
         {
-            if (input[i] == ".") continue;
-            if (i > 0 && input[i] == input[i - 1]) continue;
-            
-            Dictionary<int, int> freeBlocks = FindAllFreeBlocks(input);
+            if (input[i] == "." || input[i] == input[i - 1]) continue;
             
             int lengthOfBlockToMove = 0;
             for (int j = i; j < input.Count; j++)
@@ -81,9 +80,16 @@ public class Day09 : Day
                 // remove block that was moved and insert free block (e.g. ".....")
                 input.RemoveRange(i, lengthOfBlockToMove);
                 input.InsertRange(i, blockToMove.ConvertAll(x => "."));
+
+                // add newly created free block
+                freeBlocks.TryAdd(i, lengthOfBlockToMove);
+                
+                // remove used free block
+                freeBlocks.Remove(freeBlock.Key);
+                freeBlocks.TryAdd(freeBlock.Key + lengthOfBlockToMove, freeBlock.Value - lengthOfBlockToMove);
+                
                 break;
             }
-            
         }
         
         long answerValue = 0;
