@@ -19,8 +19,8 @@ List<Day> days =
     new Day15()
 ];
 
-int startDay = 10;
-int endDay = 10;
+int startDay = 1;
+int endDay = 15;
 
 for (int i = startDay-1; i < endDay; i++)
 {

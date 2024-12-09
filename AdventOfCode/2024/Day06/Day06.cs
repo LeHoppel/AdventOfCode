@@ -4,7 +4,7 @@ public class Day06 : Day
 {
     public override bool PrintTime { get => true; set { } }
     
-    public override int CalculatePart01(string kindOfInput, string pathPrefix)
+    public override long CalculatePart01(string kindOfInput, string pathPrefix)
     {
         List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");
         input.Reverse();
@@ -99,7 +99,7 @@ public class Day06 : Day
         return answerValue;
     }
 
-    public override int CalculatePart02(string kindOfInput, string pathPrefix)
+    public override long CalculatePart02(string kindOfInput, string pathPrefix)
     {
         //if (kindOfInput == "input") return -1;
         List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");

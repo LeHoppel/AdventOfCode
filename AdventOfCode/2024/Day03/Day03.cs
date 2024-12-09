@@ -6,7 +6,7 @@ public class Day03 : Day
 {
     public override bool PrintTime { get => false; set { } }
     
-    public override int CalculatePart01(string kindOfInput, string pathPrefix)
+    public override long CalculatePart01(string kindOfInput, string pathPrefix)
     {
         StreamReader streamReader = new StreamReader(pathPrefix + "\\" + kindOfInput + ".txt");
         string? currentLine = streamReader.ReadLine(); 
@@ -39,7 +39,7 @@ public class Day03 : Day
         return value;
     }
 
-    public override int CalculatePart02(string kindOfInput, string pathPrefix)
+    public override long CalculatePart02(string kindOfInput, string pathPrefix)
     {
         StreamReader streamReader = new StreamReader(pathPrefix + "\\" + kindOfInput + ".txt");
         string? currentLine = streamReader.ReadLine(); 

@@ -4,7 +4,7 @@ public class Day07 : Day
 {
     public override bool PrintTime { get => false; set { } }
     
-    public override int CalculatePart01(string kindOfInput, string pathPrefix)
+    public override long CalculatePart01(string kindOfInput, string pathPrefix)
     {
         List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");
         long answerValue = 0;
@@ -18,8 +18,7 @@ public class Day07 : Day
             answerValue += ReduceLineValue(splitLine, testValue) ? testValue : 0;
         }
         
-        Console.WriteLine($"Day 7 part 1 {kindOfInput}: {answerValue}");
-        return -1;
+        return answerValue;
     }
 
     private bool ReduceLineValue(List<string> splitLine, long testValue, long runningValue = 0)
@@ -35,7 +34,7 @@ public class Day07 : Day
                || ReduceLineValue(splitLine.GetRange(1, splitLine.Count - 1), testValue, runningValue != 0 ? runningValue * first : first);
     }
 
-    public override int CalculatePart02(string kindOfInput, string pathPrefix)
+    public override long CalculatePart02(string kindOfInput, string pathPrefix)
     {
         List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");
         long answerValue = 0;
@@ -49,8 +48,7 @@ public class Day07 : Day
             answerValue += ReduceLineValueWithConcat(splitLine, testValue) ? testValue : 0;
         }
         
-        Console.WriteLine($"Day 7 part 2 {kindOfInput}: {answerValue}");
-        return -1;
+        return answerValue;
     }
 
     private bool ReduceLineValueWithConcat(List<string> splitLine, long testValue, long runningValue = 0)

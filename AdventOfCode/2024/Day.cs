@@ -4,9 +4,9 @@ public abstract class Day
 {
     public abstract bool PrintTime { get; set; }
     
-    public abstract int CalculatePart01(string kindOfInput, string pathPrefix);
+    public abstract long CalculatePart01(string kindOfInput, string pathPrefix);
 
-    public abstract int CalculatePart02(string kindOfInput, string pathPrefix);
+    public abstract long CalculatePart02(string kindOfInput, string pathPrefix);
 
     protected virtual List<string> ReadInput(string path)
     {

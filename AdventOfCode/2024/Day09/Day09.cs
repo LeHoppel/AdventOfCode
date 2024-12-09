@@ -8,7 +8,7 @@ public class Day09 : Day
         set { }
     }
 
-    public override int CalculatePart01(string kindOfInput, string pathPrefix)
+    public override long CalculatePart01(string kindOfInput, string pathPrefix)
     {
         List<string> input = TransformInput(kindOfInput, pathPrefix);
 
@@ -27,9 +27,7 @@ public class Day09 : Day
         for (int i = 0; i < input.Count; i++)
             answerValue += input[i] != "." ? long.Parse(input[i]) * i : 0;
         
-        Console.WriteLine($"Day 9 part 1 {kindOfInput}: {answerValue}");
-        
-        return -1;
+        return answerValue;
     }
 
     private List<string> TransformInput(string kindOfInput, string pathPrefix)
@@ -53,7 +51,7 @@ public class Day09 : Day
         return transformedInput;
     }
 
-    public override int CalculatePart02(string kindOfInput, string pathPrefix)
+    public override long CalculatePart02(string kindOfInput, string pathPrefix)
     {
         List<string> input = TransformInput(kindOfInput, pathPrefix);
         
@@ -92,10 +90,8 @@ public class Day09 : Day
 
         for (int i = 0; i < input.Count; i++)
             answerValue += input[i] != "." ? long.Parse(input[i]) * i : 0;
-        
-        Console.WriteLine($"Day 9 part 2 {kindOfInput}: {answerValue}");
 
-        return -1;
+        return answerValue;
     }
 
 
