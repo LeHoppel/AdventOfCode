@@ -4,7 +4,6 @@ public class Day09 : Day
 {
     public override int CalculatePart01(string kindOfInput, string pathPrefix)
     {
-        if (kindOfInput == "input") return -1;
         List<string> input = TransformInput(kindOfInput, pathPrefix);
 
         for (int i = input.Count - 1; i >= 0; i--)
@@ -62,18 +61,20 @@ public class Day09 : Day
             int lengthOfBlockToMove = 0;
             for (int j = i; j < input.Count; j++)
             {
-                lengthOfBlockToMove += input[j] == input[i] ? 1 : 0;
-                if (input[j] != input[i]) break;
+                if (input[j] == input[i]) lengthOfBlockToMove++;
+                else break;
             }
             
-            foreach (KeyValuePair<int, int> block in freeBlocks)
+            foreach (KeyValuePair<int, int> freeBlock in freeBlocks)
             {
-                if (block.Key > i || block.Value < lengthOfBlockToMove) continue;
+                if (freeBlock.Key > i || freeBlock.Value < lengthOfBlockToMove) continue;
                 
                 List<string> blockToMove = input.GetRange(i, lengthOfBlockToMove);
-                input.RemoveRange(block.Key, lengthOfBlockToMove);
-                input.InsertRange(block.Key, blockToMove);
+                // remove free block (e.g. ".....") and insert block to move
+                input.RemoveRange(freeBlock.Key, lengthOfBlockToMove);
+                input.InsertRange(freeBlock.Key, blockToMove);
                 
+                // remove block that was moved and insert free block (e.g. ".....")
                 input.RemoveRange(i, lengthOfBlockToMove);
                 input.InsertRange(i, blockToMove.ConvertAll(x => "."));
                 break;
@@ -103,8 +104,8 @@ public class Day09 : Day
             int lengthOfFreeBlock = 0;
             for (int j = i; j < input.Count; j++)
             {
-                lengthOfFreeBlock += input[j] == input[i] ? 1 : 0;
-                if (input[j] != input[i]) break;
+                if (input[j] == input[i]) lengthOfFreeBlock++;
+                else break;
             }
             
             freeBlocks.Add(i, lengthOfFreeBlock);
