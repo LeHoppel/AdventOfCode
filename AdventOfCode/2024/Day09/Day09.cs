@@ -2,11 +2,7 @@ namespace AdventOfCode._2024;
 
 public class Day09 : Day
 {
-    public override bool PrintTime
-    {
-        get => true;
-        set { }
-    }
+    public override bool PrintTime { get => true; set { } }
 
     public override long CalculatePart01(string kindOfInput, string pathPrefix)
     {
@@ -73,6 +69,7 @@ public class Day09 : Day
                 if (freeBlock.Key > i || freeBlock.Value < lengthOfBlockToMove) continue;
                 
                 List<string> blockToMove = input.GetRange(i, lengthOfBlockToMove);
+                
                 // remove free block (e.g. ".....") and insert block to move
                 input.RemoveRange(freeBlock.Key, lengthOfBlockToMove);
                 input.InsertRange(freeBlock.Key, blockToMove);
@@ -80,13 +77,10 @@ public class Day09 : Day
                 // remove block that was moved and insert free block (e.g. ".....")
                 input.RemoveRange(i, lengthOfBlockToMove);
                 input.InsertRange(i, blockToMove.ConvertAll(x => "."));
-
-                // add newly created free block
-                freeBlocks.TryAdd(i, lengthOfBlockToMove);
                 
-                // remove used free block
+                // remove/trim used free block
                 freeBlocks.Remove(freeBlock.Key);
-                freeBlocks.TryAdd(freeBlock.Key + lengthOfBlockToMove, freeBlock.Value - lengthOfBlockToMove);
+                if (freeBlock.Value - lengthOfBlockToMove > 0) freeBlocks.Add(freeBlock.Key + lengthOfBlockToMove, freeBlock.Value - lengthOfBlockToMove);
                 
                 break;
             }
