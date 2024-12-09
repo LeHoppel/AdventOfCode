@@ -2,6 +2,8 @@ namespace AdventOfCode._2024;
 
 public class Day04 : Day
 {
+    public override bool PrintTime { get => false; set { } }
+    
     public override int CalculatePart01(string kindOfInput, string pathPrefix)
     {
         List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");

@@ -4,6 +4,8 @@ namespace AdventOfCode._2024;
 
 public class Day03 : Day
 {
+    public override bool PrintTime { get => false; set { } }
+    
     public override int CalculatePart01(string kindOfInput, string pathPrefix)
     {
         StreamReader streamReader = new StreamReader(pathPrefix + "\\" + kindOfInput + ".txt");

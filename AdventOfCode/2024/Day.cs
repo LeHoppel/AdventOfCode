@@ -2,6 +2,8 @@ namespace AdventOfCode._2024;
 
 public abstract class Day
 {
+    public abstract bool PrintTime { get; set; }
+    
     public abstract int CalculatePart01(string kindOfInput, string pathPrefix);
 
     public abstract int CalculatePart02(string kindOfInput, string pathPrefix);
