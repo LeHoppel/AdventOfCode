@@ -27,7 +27,6 @@ public class Day10 : Day
 
     private int RecursiveHikeScore(List<string> input, int x, int y, int entryHeight, List<(int, int)> visitedNines)
     {
-        Console.WriteLine($"x: {x}, y: {y}, entryHeight: {entryHeight}, ");
         if (x < 0 || x >= input[0].Length || y < 0 || y >= input.Count) return 0;
         
         int fieldHeight = int.Parse(input[y][x].ToString());
@@ -67,16 +66,12 @@ public class Day10 : Day
     
     private int RecursiveHikeRating(List<string> input, int x, int y, int entryHeight)
     {
-        Console.WriteLine($"x: {x}, y: {y}, entryHeight: {entryHeight}, ");
         if (x < 0 || x >= input[0].Length || y < 0 || y >= input.Count) return 0;
         
         int fieldHeight = int.Parse(input[y][x].ToString());
         if (fieldHeight - entryHeight != 1) return 0;
 
-        if (fieldHeight == 9)
-        {
-            return 1;
-        }
+        if (fieldHeight == 9) return 1;
 
         return RecursiveHikeRating(input, x + 1, y, fieldHeight)
                + RecursiveHikeRating(input, x, y + 1, fieldHeight)
