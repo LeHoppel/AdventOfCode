@@ -21,7 +21,7 @@ public class Day01 : Day
             
             currentLine = streamReader.ReadLine(); 
         }
-        
+        Console.WriteLine(Math.Abs(rightList.Sum() - leftList.Sum()));
         leftList.Sort();
         rightList.Sort();
         
