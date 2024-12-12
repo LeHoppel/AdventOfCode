@@ -54,87 +54,61 @@ public class Day12 : Day
         
         List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");
         input.Reverse();
-        int answerValue = 0;
 
-        int[,][] edges = CalculateEdges(input);
-
-        //Console.WriteLine($"Field 3,0 ({input[0][3]}): "+ string.Join(",", edges[3,0]));
-        //Console.WriteLine($"Field 4,1 ({input[1][4]}): "+ string.Join(",", edges[4,1]));
-        //Console.WriteLine($"Field 5,1 ({input[1][5]}): "+ string.Join(",", edges[5,1]));
-
-        _visitedRegions.Clear();
-        for (int x = 0; x < input[0].Length; x++)
+        for (int i = 0; i < input.Count; i++)
         {
-            for (int y = 0; y < input.Count; y++)
+            input[i] = input[i].Insert(0, "_");
+            input[i] = input[i].Insert(input[i].Length, "_");
+        }
+        
+        input.Insert(0, string.Join("", input[0].ToList().ConvertAll(x => '_')));
+        input.Add(string.Join("", input[0].ToList().ConvertAll(x => '_')));
+        
+        foreach (string str in input)
+            Console.WriteLine(str);
+        
+        int answerValue = 0;
+        
+        int[,] isPointEdge = new int[input[0].Length + 2, input.Count + 2];
+        
+        for (int x = 1; x < input[0].Length; x++)
+        {
+            for (int y = 1; y < input.Count; y++)
             {
-                if (_visitedRegions.Contains((x, y))) continue;
-                if (edges[x, y].Sum() == 0) continue;
-                
-                TraverseBorder(input, x, y, edges);
-                //(int area, int perimeter) = RecursiveCost(input, x, y, input[y][x], new List<(int, int)>());
+                char regionSymbol = 'E';
 
-                //answerValue += area * perimeter;
+                bool[] neighbourhood = [false, false, false, false];
+
+                neighbourhood[0] = input[y - 1][x - 1] == regionSymbol;
+                neighbourhood[1] = input[y][x - 1] == regionSymbol;
+                neighbourhood[2] = input[y - 1][x] == regionSymbol;
+                neighbourhood[3] = input[y][x] == regionSymbol;
+                
+                int adjacentSum = neighbourhood.Count(b => b);
+
+                if (adjacentSum % 2 == 1) isPointEdge[x, y] = 1;
+                else if (adjacentSum == 2)
+                {
+                    if (neighbourhood[0] && !neighbourhood[1] && !neighbourhood[2] && neighbourhood[3])
+                        isPointEdge[x, y] = 2;
+                    if (!neighbourhood[0] && neighbourhood[1] && neighbourhood[2] && !neighbourhood[3])
+                        isPointEdge[x, y] = 2;
+                }
+            }
+        }
+        
+        for (int i = 0; i < input[0].Length + 1; i++)
+        {
+            for (int j = 0; j < input.Count + 1; j++)
+            {
+                Console.WriteLine($"({i},{j}): {isPointEdge[i, j]}");
+                answerValue += isPointEdge[i, j];
             }
         }
         
         return answerValue;
     }
 
-    private void TraverseBorder(List<string> input, int x, int y, int[,][] edges)
-    {
-        Console.WriteLine($"Field {x},{y} ({input[y][x]}): "+ string.Join(",", edges[x,y]));
-        
-        switch (edges[x,y])
-        {
-            case [0,0,0,1]:
-                break;
-            case [0,0,1,0]:
-                break;
-            case [0,0,1,1]:
-                break;
-            case [0,1,0,0]:
-                break;
-            case [0,1,0,1]:
-                break;
-            case [0,1,1,0]:
-                break;
-            case [0,1,1,1]:
-                break;
-            case [1,0,0,1]:
-                break;
-            case [1,0,1,0]:
-                break;
-            case [1,0,1,1]:
-                break;
-            case [1,1,0,0]:
-                break;
-            case [1,1,0,1]:
-                break;
-            case [1,1,1,0]:
-                break;
-            case [1,1,1,1]:
-                break;
-        }
-    }
-
-    private static int[,][] CalculateEdges(List<string> input)
-    {
-        int[,][] edges = new int[input[0].Length, input.Count][];
-        for (int x = 0; x < input[0].Length; x++)
-        {
-            for (int y = 0; y < input.Count; y++)
-            {
-                char regionSymbol = input[y][x];
-
-                edges[x, y] = new int[4];
-
-                if (y == input.Count - 1 || input[y + 1][x] != regionSymbol) edges[x, y][0] = 1;
-                if (x == input[0].Length - 1 || input[y][x + 1] != regionSymbol) edges[x, y][1] = 1;
-                if (y == 0 || input[y - 1][x] != regionSymbol) edges[x, y][2] = 1;
-                if (x == 0 || input[y][x - 1] != regionSymbol) edges[x, y][3] = 1;
-            }
-        }
-
-        return edges;
-    }
+    private int Ceil(float x) => (int)float.Ceiling(x);
+    private int Floor(float x) => (int)float.Floor(x);
 }
