@@ -10,6 +10,7 @@ public class Day13 : Day
     
     public override long CalculatePart01(string kindOfInput, string pathPrefix)
     {
+        return -1;
         List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");
         
         List<long[]> automatons = new List<long[]>();
@@ -61,8 +62,49 @@ public class Day13 : Day
     public override long CalculatePart02(string kindOfInput, string pathPrefix)
     {
         List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");
+        
+        List<long[]> automatons = new List<long[]>();
+        for (int i = 0; i < input.Count; i += 4)
+        {
+            MatchCollection matches = Regex.Matches(input[i]+input[i+1]+input[i+2], "(\\+|-|=)([0-9]*)");
+
+            long[] automaton = 
+            {
+                long.Parse(matches[0].Value.Remove(0, 1)), long.Parse(matches[1].Value.Remove(0, 1)),
+                long.Parse(matches[2].Value.Remove(0, 1)), long.Parse(matches[3].Value.Remove(0, 1)),
+                long.Parse(matches[4].Value.Remove(0, 1)), long.Parse(matches[5].Value.Remove(0, 1))
+            };
+            automatons.Add(automaton);
+        }
+
         long answerValue = 0;
         
+        foreach (long[] automaton in automatons)
+        {
+            (long, long) result = SolveAutomaton(automaton, 10000000000000);
+            
+            if (result != (-1, -1)) answerValue += 3 * result.Item1 + result.Item2;
+        }
+        
         return answerValue;
+    }
+
+    private (long, long) SolveAutomaton(long[] automaton, long prizeOffset = 0)
+    {
+        long ax = automaton[0];
+        long ay = automaton[1];
+        long bx = automaton[2];
+        long by = automaton[3];
+
+        long px = automaton[4] + prizeOffset;
+        long py = automaton[5] + prizeOffset;
+
+        long a = (px * by - py * bx) / (ax * by - ay * bx);
+        long b = (px - a * ax) / bx;
+        
+        if (a < 0 || a * ax + b * bx != px || b < 0 || a * ay + b * by != py) 
+            return (-1, -1);
+        
+        return (a, b);
     }
 }
