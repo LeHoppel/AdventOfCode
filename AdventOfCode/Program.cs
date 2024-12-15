@@ -16,11 +16,16 @@ List<Day> days =
     new Day12(),
     new Day13(),
     new Day14(),
-    new Day15()
+    new Day15(),
+    new Day16(),
+    new Day17(),
+    new Day18(),
+    new Day19(),
+    new Day20()
 ];
 
-int startDay = 15;
-int endDay = 15;
+int startDay = 16;
+int endDay = 16;
 
 for (int i = startDay-1; i < endDay; i++)
 {
