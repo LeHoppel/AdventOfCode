@@ -8,7 +8,7 @@ public class Day16 : Day
     
     public override long CalculatePart01(string kindOfInput, string pathPrefix)
     {
-        if (kindOfInput == "input") return -1;
+        //if (kindOfInput == "input") return -1;
         List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");
 
         VecInt2 exit = new VecInt2(-1, -1);
@@ -59,23 +59,26 @@ public class Day16 : Day
     {
         if (fieldBlocked[currentField])
             return 999999999;
+
+        if (entryCost > 80000)
+            return 999999999;
         
         if (currentField == exit)
         {
-            // _visitedFields.TryAdd((currentField, orientation), entryCost);
-            // if (_visitedFields[(currentField, orientation)] < entryCost)
-            //     return _visitedFields[(currentField, orientation)];
-            // else 
-            //     _visitedFields[(currentField, orientation)] = Math.Min(_visitedFields[(currentField, orientation)], entryCost);
+            _visitedFields.TryAdd((currentField, orientation), entryCost);
+            if (_visitedFields[(currentField, orientation)] < entryCost)
+                return 999999999;
+            else 
+                _visitedFields[(currentField, orientation)] = Math.Min(_visitedFields[(currentField, orientation)], entryCost);
             
             return entryCost;
         }
         
-        // if (_visitedFields.Any(kvp => kvp.Key.Item1 == exit))
-        // {
-        //     int? minCostToExit = _visitedFields.Where(kvp => kvp.Key.Item1 == exit).Select(kvp => kvp.Value)?.Min();
-        //     if (minCostToExit != null && minCostToExit < entryCost) return 999999999;
-        // }
+        if (_visitedFields.Any(kvp => kvp.Key.Item1 == exit))
+        {
+            int? minCostToExit = _visitedFields.Where(kvp => kvp.Key.Item1 == exit).Select(kvp => kvp.Value)?.Min();
+            if (minCostToExit != null && minCostToExit < entryCost) return 999999999;
+        }
         
         _visitedFields.TryAdd((currentField, orientation), entryCost);
         if (_visitedFields[(currentField, orientation)] < entryCost)
