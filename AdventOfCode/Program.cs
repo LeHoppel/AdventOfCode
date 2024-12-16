@@ -29,9 +29,7 @@ int endDay = 16;
 
 for (int i = startDay-1; i < endDay; i++)
 {
-    // Work: "D:\\Lennart\\Git\\AdventOfCode\\AdventOfCode\\2024\\Day" + (i+1 < 10 ? "0" + (i+1) : i+1);
-    // Home: "C:\\Users\\Lennart\\RiderProjects\\AdventOfCode\\AdventOfCode\\2024\\Day" + (i+1 < 10 ? "0" + (i+1) : i+1);
-    string pathPrefix = "D:\\Lennart\\Git\\AdventOfCode\\AdventOfCode\\2024\\Day" + (i+1 < 10 ? "0" + (i+1) : i+1);
+    string pathPrefix = "C:\\Users\\Lennart\\RiderProjects\\AdventOfCode\\AdventOfCode\\2024\\Day" + (i+1 < 10 ? "0" + (i+1) : i+1);
     
     TimeSpan startTime = DateTime.Now.TimeOfDay;
 
