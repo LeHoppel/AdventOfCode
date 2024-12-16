@@ -10,6 +10,7 @@
     <ItemGroup>
       <Folder Include="2023\" />
       <Folder Include="2024\Day14\visualization\" />
+      <Folder Include="obj\" />
     </ItemGroup>
 
     <ItemGroup>
