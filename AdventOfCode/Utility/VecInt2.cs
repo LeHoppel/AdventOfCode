@@ -34,8 +34,26 @@ public struct VecInt2 : IEquatable<VecInt2>
     public override int GetHashCode() => HashCode.Combine(x, y);
 
     public override string ToString() => $"({x}, {y})";
-    
-    
+
+    public VecInt2 RotateClockwise()
+    {
+        if (this.x == 1 && this.y == 0) return new VecInt2(0,  1);
+        if (this.x == 0 && this.y == 1) return new VecInt2(-1, 0);
+        if (this.x == -1 && this.y == 0) return new VecInt2(0, -1);
+        return new VecInt2(1, 0);
+    }
+    public VecInt2 RotateCounterClockwise() 
+    {
+        if (this.x == 1 && this.y == 0) return new VecInt2(0,  -1);
+        if (this.x == 0 && this.y == -1) return new VecInt2(-1, 0);
+        if (this.x == -1 && this.y == 0) return new VecInt2(0, 1);
+        return new VecInt2(1, 0);
+    }
+
+    public static readonly VecInt2 Up = new VecInt2(0, -1);
+    public static VecInt2 Right => new VecInt2(1, 0);
+    public static VecInt2 Down => new VecInt2(0, 1);
+    public static VecInt2 Left => new VecInt2(-1, 0);
     
     public static void OperatorTests()
     {
