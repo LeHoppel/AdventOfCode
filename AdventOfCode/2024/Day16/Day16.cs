@@ -56,82 +56,24 @@ public class Day16 : Day
             VecInt2 currentField = tuple.Item1;
             VecInt2 entryOrientation = tuple.Item2;
             int entryCost = tuple.Item3;
-            
 
             if (isWall[currentField]) continue;
             if (currentField == exit) continue;
-
-            if (entryOrientation == VecInt2.Right)
+            
+            if (entryCost + 1 < costToFields[currentField + entryOrientation])
             {
-                if (entryCost + 1 < costToFields[currentField + entryOrientation])
-                {
-                    costToFields[currentField + entryOrientation] = entryCost + 1;
-                    queue.Enqueue((currentField + entryOrientation, entryOrientation, entryCost + 1), entryDistance + 1);
-                }
-                if (entryCost + 1001 < costToFields[currentField + entryOrientation.RotateClockwise()])
-                {
-                    costToFields[currentField + entryOrientation.RotateClockwise()] = entryCost + 1001;
-                    queue.Enqueue((currentField + entryOrientation.RotateClockwise(), entryOrientation.RotateClockwise(), entryCost + 1001), entryDistance + 1);
-                }
-                if (entryCost + 1001 < costToFields[currentField + entryOrientation.RotateCounterClockwise()])
-                {
-                    costToFields[currentField + entryOrientation.RotateCounterClockwise()] = entryCost + 1001;
-                    queue.Enqueue((currentField + entryOrientation.RotateCounterClockwise(), entryOrientation.RotateCounterClockwise(), entryCost + 1001), entryDistance + 1);
-                }
+                costToFields[currentField + entryOrientation] = entryCost + 1;
+                queue.Enqueue((currentField + entryOrientation, entryOrientation, entryCost + 1), entryDistance + 1);
             }
-            else if (entryOrientation == VecInt2.Down)
+            if (entryCost + 1001 < costToFields[currentField + entryOrientation.RotateClockwise()])
             {
-                if (entryCost + 1 < costToFields[currentField + entryOrientation])
-                {
-                    costToFields[currentField + entryOrientation] = entryCost + 1;
-                    queue.Enqueue((currentField + entryOrientation, entryOrientation, entryCost + 1), entryDistance + 1);
-                }
-                if (entryCost + 1001 < costToFields[currentField + entryOrientation.RotateClockwise()])
-                {
-                    costToFields[currentField + entryOrientation.RotateClockwise()] = entryCost + 1001;
-                    queue.Enqueue((currentField + entryOrientation.RotateClockwise(), entryOrientation.RotateClockwise(), entryCost + 1001), entryDistance + 1);
-                }
-                if (entryCost + 1001 < costToFields[currentField + entryOrientation.RotateCounterClockwise()])
-                {
-                    costToFields[currentField + entryOrientation.RotateCounterClockwise()] = entryCost + 1001;
-                    queue.Enqueue((currentField + entryOrientation.RotateCounterClockwise(), entryOrientation.RotateCounterClockwise(), entryCost + 1001), entryDistance + 1);
-                }
+                costToFields[currentField + entryOrientation.RotateClockwise()] = entryCost + 1001;
+                queue.Enqueue((currentField + entryOrientation.RotateClockwise(), entryOrientation.RotateClockwise(), entryCost + 1001), entryDistance + 1);
             }
-            else if (entryOrientation == VecInt2.Left)
+            if (entryCost + 1001 < costToFields[currentField + entryOrientation.RotateCounterClockwise()])
             {
-                if (entryCost + 1 < costToFields[currentField + entryOrientation])
-                {
-                    costToFields[currentField + entryOrientation] = entryCost + 1;
-                    queue.Enqueue((currentField + entryOrientation, entryOrientation, entryCost + 1), entryDistance + 1);
-                }
-                if (entryCost + 1001 < costToFields[currentField + entryOrientation.RotateClockwise()])
-                {
-                    costToFields[currentField + entryOrientation.RotateClockwise()] = entryCost + 1001;
-                    queue.Enqueue((currentField + entryOrientation.RotateClockwise(), entryOrientation.RotateClockwise(), entryCost + 1001), entryDistance + 1);
-                }
-                if (entryCost + 1001 < costToFields[currentField + entryOrientation.RotateCounterClockwise()])
-                {
-                    costToFields[currentField + entryOrientation.RotateCounterClockwise()] = entryCost + 1001;
-                    queue.Enqueue((currentField + entryOrientation.RotateCounterClockwise(), entryOrientation.RotateCounterClockwise(), entryCost + 1001), entryDistance + 1);
-                }
-            }
-            else if (entryOrientation == VecInt2.Up)
-            {
-                if (entryCost + 1 < costToFields[currentField + entryOrientation])
-                {
-                    costToFields[currentField + entryOrientation] = entryCost + 1;
-                    queue.Enqueue((currentField + entryOrientation, entryOrientation, entryCost + 1), entryDistance + 1);
-                }
-                if (entryCost + 1001 < costToFields[currentField + entryOrientation.RotateClockwise()])
-                {
-                    costToFields[currentField + entryOrientation.RotateClockwise()] = entryCost + 1001;
-                    queue.Enqueue((currentField + entryOrientation.RotateClockwise(), entryOrientation.RotateClockwise(), entryCost + 1001), entryDistance + 1);
-                }
-                if (entryCost + 1001 < costToFields[currentField + entryOrientation.RotateCounterClockwise()])
-                {
-                    costToFields[currentField + entryOrientation.RotateCounterClockwise()] = entryCost + 1001;
-                    queue.Enqueue((currentField + entryOrientation.RotateCounterClockwise(), entryOrientation.RotateCounterClockwise(), entryCost + 1001), entryDistance + 1);
-                }
+                costToFields[currentField + entryOrientation.RotateCounterClockwise()] = entryCost + 1001;
+                queue.Enqueue((currentField + entryOrientation.RotateCounterClockwise(), entryOrientation.RotateCounterClockwise(), entryCost + 1001), entryDistance + 1);
             }
         }
         
