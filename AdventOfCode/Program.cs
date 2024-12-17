@@ -24,8 +24,8 @@ List<Day> days =
     new Day20()
 ];
 
-int startDay = 16;
-int endDay = 16;
+int startDay = 17;
+int endDay = 17;
 
 for (int i = startDay-1; i < endDay; i++)
 {
