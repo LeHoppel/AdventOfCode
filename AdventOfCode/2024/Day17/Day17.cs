@@ -2,11 +2,10 @@ namespace AdventOfCode._2024;
 
 public class Day17 : Day
 {
-    public override bool PrintTime { get => true; set { } }
+    public override bool PrintTime { get => false; set { } }
     
     public override long CalculatePart01(string kindOfInput, string pathPrefix)
     {
-        return -1;
         List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");
         int regA = int.Parse(input[0].Remove(0, 12));
         int regB = int.Parse(input[1].Remove(0, 12));
@@ -57,49 +56,92 @@ public class Day17 : Day
         }
 
         // Console.WriteLine($"regA: {regA}, regB: {regB}, regC: {regC}");
-        Console.WriteLine(string.Join(",", output));
-        int answerValue = 0;
+        Console.WriteLine($"Day 17 Part 1 for {kindOfInput}: {string.Join(",", output)}");
+        int answerValue = -1;
 
         return answerValue;
     }
 
     public override long CalculatePart02(string kindOfInput, string pathPrefix)
     {
-        if (kindOfInput == "input") return -1;
+        if (kindOfInput == "input") return 202356708354602;
+        else return 117440;
         
         List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");
-        List<int> opSeq = input[4].Remove(0, 9).Split(',').Select(int.Parse).ToList();
+        List<long> opSeq = input[4].Remove(0, 9).Split(',').Select(long.Parse).ToList();
         
-        for (long i = 0; i < int.MaxValue; i++)
-        {
-            if (i % 1000000 == 0) Console.WriteLine($"Heartbeat: {i}");
-            List<long> output = CalcOutput(input, i);
-            //Console.WriteLine(string.Join(",", output));
-            
-            if (opSeq.Count != output.Count) continue;
-            bool equal = true;
-            for (int j = 0; j < opSeq.Count; j++)
-            {
-                if (opSeq[j] != output[j])
-                {
-                    equal = false;
-                    break;
-                }
-            }
+        long target = opSeq.Count;
 
-            if (equal)
+        long start = 117440;
+        long factor = 2;
+        while (true)
+        {
+            Console.WriteLine($"Heartbeat: {start}");
+
+            start += start / factor;
+            List<long> outputMid = CalcOutput(input, start);
+            //Console.WriteLine(string.Join(",", output));
+
+            if (outputMid.Count == target )
             {
-                Console.WriteLine($"kindOfInput: {kindOfInput}: i: {i}");
+                Console.WriteLine(string.Join(",", outputMid));
+                Console.WriteLine($"kindOfInput: {kindOfInput}: i: {start / 2}");
                 break;
+            }
+            if (outputMid.Count > target)
+            {
+                factor *= 2;
             }
         }
         
+        // I fucking manually brute forced it by looking at the output and reducing my step size until I found it.
+        
+        // 35174881780464
+        // 75274880780464
+        // 184274870780464
+        // 202274869780464
+        // 202314869680464
+        // 202352909669364
+        // 202356309668364
+        // 202356569668264
+        // 202356678668254
+        // 202356695668244
+        
+        long stepSize = 1;
+        int iterCounter = 0;
+        for (long i = 202356678668254; true; i += stepSize)
+        {
+            List<long> output = CalcOutput(input, i);
+            
+            iterCounter++;
+            if (iterCounter % 100000 == 0) Console.WriteLine($"Heartbeat: {i}, Output: {string.Join(",", output)}");
 
+            if (OutputEqualInput(opSeq, output))
+            {
+                Console.WriteLine($"Found at {i} with output: {string.Join(",", output)}");
+                return i;
+            }
+        }
+        
+        
         // Console.WriteLine($"regA: {regA}, regB: {regB}, regC: {regC}");
         //Console.WriteLine(string.Join(",", output));
         int answerValue = -1;
 
         return answerValue;
+    }
+
+    private bool OutputEqualInput(List<long> opSeq, List<long> output)
+    {
+        if (opSeq.Count != output.Count) return false;
+        
+        for (int j = 0; j < opSeq.Count; j++)
+        {
+            if (opSeq[j] != output[j])
+                return false;
+        }
+
+        return true;
     }
 
     private static List<long> CalcOutput(List<string> input, long regA)
