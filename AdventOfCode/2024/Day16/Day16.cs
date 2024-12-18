@@ -82,7 +82,6 @@ public class Day16 : Day
     
     public override long CalculatePart02(string kindOfInput, string pathPrefix)
     {
-        //if (kindOfInput == "input") return -1;
         List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");
 
         VecInt2 exit = new VecInt2(-1, -1);
@@ -153,9 +152,36 @@ public class Day16 : Day
             }
         }
 
-        List<int> exitCosts = [costFromStart[(exit, VecInt2.Up)], costFromStart[(exit, VecInt2.Right)], costFromStart[(exit, VecInt2.Down)], costFromStart[(exit, VecInt2.Left)]];
-        int answerValue = exitCosts.Min();
-        return answerValue;
+        _fieldsOnBestPath.Clear();
+        var exitWithOrientation = costFromStart.Where(kvp => kvp.Key.Item1 == exit).OrderBy(kvp => kvp.Value).First().Key;
+        BackwardsTraversal(exitWithOrientation, start, costFromStart);
+
+        List<VecInt2> fieldsWithoutOrientation = [start];
+        foreach (var tuple in _fieldsOnBestPath)
+            if (!fieldsWithoutOrientation.Contains(tuple.Item1)) fieldsWithoutOrientation.Add(tuple.Item1);
+        
+        return fieldsWithoutOrientation.Count;
+    }
+    
+    private List<(VecInt2, VecInt2)> _fieldsOnBestPath = new();
+
+    private void BackwardsTraversal((VecInt2, VecInt2) currentWithDir, VecInt2 start, Dictionary<(VecInt2, VecInt2), int> costFromStart)
+    {
+        if (currentWithDir.Item1 == start) return;
+
+        if (_fieldsOnBestPath.Contains(currentWithDir)) return;
+        _fieldsOnBestPath.Add(currentWithDir);
+
+        var straight = (currentWithDir.Item1 - currentWithDir.Item2, currentWithDir.Item2);
+        var cw = (currentWithDir.Item1, currentWithDir.Item2.RotateClockwise());
+        var ccw = (currentWithDir.Item1, currentWithDir.Item2.RotateCounterClockwise());
+
+        if (costFromStart[straight] == costFromStart[currentWithDir] - 1)
+            BackwardsTraversal(straight, start, costFromStart);
+        if (costFromStart[cw] == costFromStart[currentWithDir] - 1000)
+            BackwardsTraversal(cw, start, costFromStart);
+        if (costFromStart[ccw] == costFromStart[currentWithDir] - 1000)
+            BackwardsTraversal(ccw, start, costFromStart);
     }
 }
 
