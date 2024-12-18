@@ -12,15 +12,10 @@ public class Day18 : Day
 
         int dimensions = kindOfInput == "input" ? 70 : 6;
         Dictionary<VecInt2, bool> corruptedFields = new();
-        Dictionary<VecInt2, int> distanceFromStart = new();
+
         for (int x = 0; x <= dimensions; x++)
-        {
             for (int y = 0; y <= dimensions; y++)
-            {
                 corruptedFields.Add(new VecInt2(x, y), false);
-                distanceFromStart.Add(new VecInt2(x, y), int.MaxValue);
-            }
-        }
 
         int maxCorruption = kindOfInput == "input" ? 1024 : 12;
         for (int i = 0; i < maxCorruption; i++)
@@ -28,8 +23,21 @@ public class Day18 : Day
 
         // PrintMap(dimensions, corruptedFields);
 
+        int answerValue = FindShortestPath(dimensions, corruptedFields);;
+
+        return answerValue;
+    }
+
+    private int FindShortestPath(int dimensions, Dictionary<VecInt2, bool> corruptedFields)
+    {
+        Dictionary<VecInt2, int> distanceFromStart = new();
+        for (int x = 0; x <= dimensions; x++)
+            for (int y = 0; y <= dimensions; y++)
+                distanceFromStart.Add(new VecInt2(x, y), int.MaxValue);
+        
         VecInt2 start = new VecInt2(0, 0);
         VecInt2 exit = new VecInt2(dimensions, dimensions);
+        
         PriorityQueue<VecInt2, int> queue = new();
         queue.Enqueue(start, 0);
 
@@ -55,14 +63,10 @@ public class Day18 : Day
             }
         }
         
-        
-        
-        int answerValue = distanceFromStart[exit];
-
-        return answerValue;
+        return distanceFromStart[exit];
     }
 
-    private static void PrintMap(int dimensions, Dictionary<VecInt2, bool> corruptedFields)
+    private void PrintMap(int dimensions, Dictionary<VecInt2, bool> corruptedFields)
     {
         for (int y = 0; y <= dimensions; y++)
         {
@@ -77,10 +81,26 @@ public class Day18 : Day
 
     public override long CalculatePart02(string kindOfInput, string pathPrefix)
     {
-        if (kindOfInput == "input") return -1;
         List<string> input = ReadInput(pathPrefix + "\\" + kindOfInput + ".txt");
-        int answerValue = 0;
+
+        int dimensions = kindOfInput == "input" ? 70 : 6;
+        Dictionary<VecInt2, bool> corruptedFields = new();
+
+        for (int x = 0; x <= dimensions; x++)
+        for (int y = 0; y <= dimensions; y++)
+            corruptedFields.Add(new VecInt2(x, y), false);
+
+        VecInt2 latestCorruption = new VecInt2(-1, -1);
+        foreach (string line in input)
+        {
+            latestCorruption = new VecInt2(int.Parse(line.Split(',')[0]), int.Parse(line.Split(',')[1]));
+            corruptedFields[latestCorruption] = true;
+            
+            int pathLength = FindShortestPath(dimensions, corruptedFields);
+            if (pathLength == int.MaxValue) break;
+        }
         
-        return answerValue;
+        Console.WriteLine($"Day 18 second part for {kindOfInput}: {latestCorruption}");
+        return -1;
     }
 }
