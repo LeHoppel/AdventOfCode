@@ -5,6 +5,8 @@
 
 namespace Utility {
     std::vector<std::string> readInput(const std::string& path);
+
+    std::vector<std::string> splitString(const std::string &str, char delimiter);
 }
 
 #endif
