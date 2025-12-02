@@ -5,8 +5,10 @@
 
 int main() {
     auto firstPart = Day02::firstPart();
+    std::cout << "Part 1: " << firstPart << std::endl << std::endl;
+
     auto secondPart = Day02::secondPart();
-    std::cout << "Part 1: " << firstPart << std::endl;
+
 
     std::cout << "Part 2: " << secondPart << std::endl;
 }

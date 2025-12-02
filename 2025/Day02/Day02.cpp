@@ -15,7 +15,7 @@ namespace Day02 {
 
         for (const auto& range : ranges) {
             auto startAndEnd = Utility::splitString(range, '-');
-            std::cout << startAndEnd[0] << std::endl;
+
             long long start = std::stoll(startAndEnd[0]);
             long long end = std::stoll(startAndEnd[1]);
 
@@ -36,12 +36,52 @@ namespace Day02 {
                 if (invalid) result += i;
             }
         }
+        
         std::cout << result << std::endl;
         return result;
     }
 
     float secondPart() {
+        auto input = Utility::readInput(inputPath)[0];
 
-        return 1;
+        auto ranges = Utility::splitString(input, ',');
+
+        long long result = 0;
+
+        for (const auto& range : ranges) {
+            auto startAndEnd = Utility::splitString(range, '-');
+
+            long long start = std::stoll(startAndEnd[0]);
+            long long end = std::stoll(startAndEnd[1]);
+
+            for (long long i = start; i <= end; i++) {
+                std::string current = std::to_string(i);
+
+                for (int sequenceLength = 1; sequenceLength <= current.length() / 2; sequenceLength++) {
+                    if (current.length() % sequenceLength != 0) continue;
+
+                    int fitting = current.length() / sequenceLength;
+
+                    bool invalidSequence = true;
+
+                    // j = index in the sequence
+                    // k = current multiple of the sequence
+                    for (int j = 0; j < sequenceLength; j++) {
+                        for (int k = 1; k < fitting; k++) {
+                            if (current[j] != current[j + k*sequenceLength])
+                                invalidSequence = false;
+                        }
+                    }
+                    if (invalidSequence) {
+                        result += i;
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        std::cout << result << std::endl;
+        return result;
     }
 }
