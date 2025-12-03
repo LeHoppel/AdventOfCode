@@ -5,6 +5,7 @@
 #include "Day02/Day02.h"
 #include "Day03/Day03.h"
 #include "Day04/Day04.h"
+#include "Day05/Day05.h"
 
 int main() {
     auto start = std::chrono::high_resolution_clock::now();
