@@ -8,7 +8,7 @@
 
 using namespace Day03;
 
-double Day03::firstPart() {
+std::string Day03::firstPart() {
     auto input = Utility::readInput(inputPath);
     int result = 0;
 
@@ -36,10 +36,10 @@ double Day03::firstPart() {
         result += std::stoi(joltage);
     }
 
-    return result;
+    return std::to_string(result);
 }
 
-double Day03::secondPart() {
+std::string Day03::secondPart() {
     auto input = Utility::readInput(inputPath);
     long long result = 0;
 
@@ -65,6 +65,5 @@ double Day03::secondPart() {
         result += std::stoll(joltage);
     }
 
-    std::cout << result << std::endl;
-    return result;
+    return std::to_string(result);
 }

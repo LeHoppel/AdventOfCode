@@ -12,4 +12,5 @@ add_executable(2025 main.cpp
         Utility/Utilitiy.h
         Day03/Day03.cpp
         Day03/Day03.h
+        Day04/Day04.cpp
 )

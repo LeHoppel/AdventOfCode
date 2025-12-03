@@ -7,7 +7,7 @@
 
 using namespace Day01;
 
-double Day01::firstPart() {
+std::string Day01::firstPart() {
     auto input = Utility::readInput(inputPath);
 
     int result = 0;
@@ -27,10 +27,10 @@ double Day01::firstPart() {
         if (dial == 0) result++;
     }
 
-    return result;
+    return std::to_string(result);
 }
 
-double Day01::secondPart() {
+std::string Day01::secondPart() {
     auto input = Utility::readInput(inputPath);
 
     int result = 0;
@@ -58,5 +58,5 @@ double Day01::secondPart() {
         }
     }
 
-    return result;
+    return std::to_string(result);
 }

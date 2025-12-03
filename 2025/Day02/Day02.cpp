@@ -7,7 +7,7 @@
 #include "../Utility/Utilitiy.h"
 
 using namespace Day02;
-double Day02::firstPart() {
+std::string Day02::firstPart() {
     auto input = Utility::readInput(inputPath)[0];
     auto ranges = Utility::splitString(input, ',');
 
@@ -37,11 +37,10 @@ double Day02::firstPart() {
         }
     }
 
-    std::cout << result << std::endl;
-    return result;
+    return std::to_string(result);
 }
 
-double Day02::secondPart() {
+std::string Day02::secondPart() {
     auto input = Utility::readInput(inputPath)[0];
 
     auto ranges = Utility::splitString(input, ',');
@@ -81,6 +80,5 @@ double Day02::secondPart() {
         }
     }
 
-    std::cout << result << std::endl;
-    return result;
+    return std::to_string(result);
 }
